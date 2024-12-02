@@ -1,0 +1,13 @@
+[package]
+name = "libsql-context-server"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[lib]
+path = "src/libsql-context-server.rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+serde = "1.0"
+zed_extension_api = "0.2.0"
