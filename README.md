@@ -6,7 +6,7 @@ This extension provides a Model Context Server for Libsql, for use with the Zed 
 
 To use the extension, you will need to point the context server at a Libsql database by setting the `database_url` in your Zed `settings.json`:
 
-**Note:** This extension does not install a libsql model context server. You will need to provide your own. Here is a link to one: [Mcp Server LibSQL](https://github.com/nicholasq/mcp-server-libsql)
+> **Note:** This extension does not install a libsql model context server. You will need to provide your own. Here is a link to one: [Mcp Server LibSQL](https://github.com/nicholasq/mcp-server-libsql)
 
 ```json
 {
@@ -24,5 +24,5 @@ To use the extension, you will need to point the context server at a Libsql data
 
 ## Usage
 
-- `/libsql-schema `: Retrieve the schema for the table with the given name.
+- `/libsql-schema`: Retrieve the schema for the table with the given name.
 - `/libsql-schema all-tables`: Retrieve the schemas for all tables in the database.
