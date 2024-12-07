@@ -9,8 +9,6 @@ struct LibsqlContextServerSettings {
     database_url: String,
     server_path: String,
     auth_token: Option<String>,
-    log_file: Option<String>,
-    debug: Option<bool>,
 }
 
 impl zed::Extension for LibsqlModelContextExtension {
@@ -23,6 +21,7 @@ impl zed::Extension for LibsqlModelContextExtension {
         _context_server_id: &ContextServerId,
         project: &Project,
     ) -> Result<Command> {
+
         let ctx_server_settings =
             ContextServerSettings::for_project("libsql-context-server", project)?;
         let Some(settings) = ctx_server_settings.settings else {
@@ -44,18 +43,6 @@ impl zed::Extension for LibsqlModelContextExtension {
         if let Some(auth_token) = settings.auth_token {
             if !auth_token.is_empty() {
                 args.extend_from_slice(&["--auth-token".to_string(), auth_token]);
-            }
-        }
-
-        if let Some(log_file) = settings.log_file {
-            if !log_file.is_empty() {
-                args.extend_from_slice(&["--log-file".to_string(), log_file]);
-            }
-        }
-
-        if let Some(debug) = settings.debug {
-            if debug {
-                args.push("--debug".to_string());
             }
         }
 
