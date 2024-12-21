@@ -1,4 +1,4 @@
-# Libsql Context Server
+# Zed Context Server
 
 This extension provides a connection to a Model Context Server for Libsql, for
 use with the Zed AI assistant. It will add prompts from the connected server as
@@ -21,11 +21,14 @@ Your Zed `settings.json`:
 ```json
 {
   "context_servers": {
-    "libsql-context-server": {
+    "zed-context-server": {
       "settings": {
-        "database_url": "libsql://db-name-user.turso.io",
-        "server_path": "/path/to/libsql-server",
-        "auth_token": "my_auth_token" // optional if running a local libsql instance
+        "command": "uvx",
+        "args": [
+          "mcp-server-git",
+          "--repository",
+          "/Users/d/Projects/opensource/onetime/onetimesecret"
+        ]
       }
     }
   }
