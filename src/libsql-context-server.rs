@@ -21,33 +21,30 @@ impl zed::Extension for LibsqlModelContextExtension {
         _context_server_id: &ContextServerId,
         project: &Project,
     ) -> Result<Command> {
-
         let ctx_server_settings =
             ContextServerSettings::for_project("libsql-context-server", project)?;
         let Some(settings) = ctx_server_settings.settings else {
-            return Err("missing settings for libsql-context-server".into());
+            Err("missing settings for libsql-context-server")?
         };
         let settings: LibsqlContextServerSettings =
             serde_json::from_value(settings).map_err(|e| e.to_string())?;
 
         if settings.database_url.is_empty() {
-            return Err("missing database_url in libsql-context-server settings".into());
+            Err("missing database_url in libsql-context-server settings")?;
         }
 
         if settings.server_path.is_empty() {
-            return Err("missing server_path in libsql-context-server settings".into());
+            Err("missing server_path in libsql-context-server settings")?;
         }
 
-        let mut args = vec![settings.database_url.to_string()];
+        let mut args = vec![settings.database_url];
 
-        if let Some(auth_token) = settings.auth_token {
-            if !auth_token.is_empty() {
-                args.extend_from_slice(&["--auth-token".to_string(), auth_token]);
-            }
+        if let Some(auth_token) = settings.auth_token.filter(|t| !t.is_empty()) {
+            args.extend_from_slice(&["--auth-token".to_string(), auth_token]);
         }
 
         Ok(Command {
-            command: settings.server_path.to_string(),
+            command: settings.server_path,
             args,
             env: vec![],
         })
